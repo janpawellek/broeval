@@ -1,17 +1,17 @@
 
 # Write results to this file
-OUTFILE = 'runs/test.result.csv'
+OUTFILE = 'runs/test2.result.csv'
 
-# Source computers for the requests
-SOURCE = ['10.0.0.1']
+# Source computer for the requests
+SOURCE = ['10.0.0.3']
 
-# Should Bro be enabled on the source machines?
+# Should Bro be enabled on the source machine?
 SOURCE_BRO = [True]
 
-# Target machines for the requests (aka server)
+# Target machine for the requests (aka server)
 TARGET = ['10.0.0.2']
 
-# Should Bro be enabled on the target machines?
+# Should Bro be enabled on the target machine?
 TARGET_BRO = [True]
 
 # Connection mode (par = parallel, seq = sequential)

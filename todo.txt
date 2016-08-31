@@ -1,7 +1,2 @@
-- copy Apache data files to 10.0.0.1 and 10.0.0.3
-- write results csv file
-- execute many sources/targets in parallel
 - 4 VMs on each machine
 - automatic generation of plots
-- automatic measurement of CPU/memory load
-
