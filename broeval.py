@@ -56,7 +56,7 @@ def main():
             print os.popen('./helpers/brostart.sh %s' % tgt).read()
 
     for epoch in range(config.EPOCHS):
-        print '---- EPOCH %i - %s ----' % (epoch, datetime.now().time())
+        print '---- %s - EPOCH %i - %s ----' % (sys.argv[1], epoch, datetime.now().time())
         sourcestat = [None] * len(sources)
         targetstat = [None] * len(targets)
 
