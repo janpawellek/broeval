@@ -24,3 +24,6 @@ runs/par-nobro-iter07000.result.csv, 100, 134.90, 0.00, 0.00, 0.00, 0.00
 runs/par-nobro-iter07500.result.csv, 100, 138.29, 0.00, 0.00, 0.00, 0.00
 runs/par-nobro-iter08000.result.csv, 100, 140.59, 0.00, 0.00, 0.00, 0.00
 runs/par-nobro-iter08500.result.csv, 100, 144.68, 0.00, 0.00, 0.00, 0.00
+runs/par-nobro-iter09000.result.csv, 100, 142.42, 0.00, 0.00, 0.00, 0.00
+runs/par-nobro-iter09500.result.csv, 100, 148.90, 0.00, 0.00, 0.00, 0.00
+runs/par-nobro-iter10000.result.csv, 100, 145.71, 0.00, 0.00, 0.00, 0.00
