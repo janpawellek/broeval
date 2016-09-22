@@ -6,7 +6,7 @@ OUTFILE = 'runs/src2-tgt1/par-nobro-iter00200.result.csv'
 SOURCE = ['10.0.0.1', '10.0.0.3']
 
 # Should Bro be enabled on the source machines?
-SOURCE_BRO = [False]
+SOURCE_BRO = [False, False]
 
 # Target machines for the requests (aka server)
 TARGET = ['10.0.0.2']
