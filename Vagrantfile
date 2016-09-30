@@ -56,8 +56,8 @@ Vagrant.configure("2") do |config|
     apt-get update
     apt-get install -y apache2 openssh-server vim git curl
     # Download and install Bro
-    curl -O https://www.bro.org/downloads/bro-2.4.1.tar.gz
-    tar -xvzf bro-2.4.1.tar.gz
+    [ -d bro-2.4.1/ ] || curl -O https://www.bro.org/downloads/bro-2.4.1.tar.gz
+    [ -d bro-2.4.1/ ] || tar -xvzf bro-2.4.1.tar.gz
     cd bro-2.4.1/
     apt-get install -y cmake make gcc g++ flex bison libpcap-dev libssl-dev python-dev swig zlib1g-dev
     ./configure
@@ -65,8 +65,8 @@ Vagrant.configure("2") do |config|
     make install
     echo "export PATH=\"$PATH:/usr/local/bro/bin\"" >> ~/.bashrc
     # Generate directory for logging
-    mkdir ~/brolog
-    ln -s /vagrant ~/broeval
+    mkdir -p ~/brolog
+    [ -e ~/broeval ] || ln -s /vagrant ~/broeval
     # Generate random files of fixed size
     cd /var/www/html
     base64 /dev/urandom | head -c 10 > 1.txt
