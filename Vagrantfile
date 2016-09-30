@@ -50,7 +50,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
-    apt-get install -y apache2 openssh-server vim git curl
+    apt-get install -y apache2 openssh-server vim git curl parallel sysstat
     # Download and install Bro
     [ -d bro-2.4.1/ ] || curl -O https://www.bro.org/downloads/bro-2.4.1.tar.gz
     [ -d bro-2.4.1/ ] || tar -xvzf bro-2.4.1.tar.gz
