@@ -17,5 +17,5 @@ MACHINE=$1
 # And add the following line at the end (without #):
 # %sudo ALL=(ALL:ALL) NOPASSWD:   /usr/bin/killall /usr/local/bro/bin/bro
 
-ssh jan@$MACHINE 'sudo /usr/bin/killall /usr/local/bro/bin/bro'
+ssh ubuntu@$MACHINE 'sudo /usr/bin/killall /usr/local/bro/bin/bro'
 
