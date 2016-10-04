@@ -6,7 +6,7 @@ import csv
 
 def main():
     if len(sys.argv) < 2:
-        print 'Usage: ./plotter.py <resultfile, resultfile, ...>'
+        print 'Usage: ./results_aggregate.py <resultfile, resultfile, ...>'
         return
     resultfns = sys.argv[1:]
 
