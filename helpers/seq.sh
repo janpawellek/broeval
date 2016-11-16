@@ -11,5 +11,5 @@ TARGET=$2
 ITER=$3
 SIZE=$4 
 
-ssh ubuntu@$SOURCE "/usr/bin/time -f \"%e\" bash -c \"for i in {1..$ITER}; do curl -s http://$TARGET/$SIZE.txt > /dev/null; done\""
+ssh jan@$SOURCE "/usr/bin/time -f \"%e\" bash -c \"for i in {1..$ITER}; do curl -s http://$TARGET/$SIZE.txt > /dev/null; done\""
 
