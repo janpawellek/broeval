@@ -104,24 +104,28 @@ def main():
                 sourcestat[i].kill()
                 outs, errs = sourcestat[i].communicate()
                 lines = outs.split('\n')
+                linecount = 0
                 for line in lines:
-                    if line:
+                    if line and line.split()[0] != '%CPU':
+                        linecount += 1
                         sourcecpu[i] += float(line.split()[0].replace(',', '.'))
                         sourcemem[i] += float(line.split()[1])
-                sourcecpu[i] /= len(lines)
-                sourcemem[i] /= len(lines)
+                sourcecpu[i] /= linecount
+                sourcemem[i] /= linecount
                 print 'Bro @ source %s took on average %.2f%% CPU and %.0f KB of physical memory.' % (src, sourcecpu[i], sourcemem[i])
         for i, (tgt, tgtb) in enumerate(targets):
             if tgtb:
                 targetstat[i].kill()
                 outs, errs = targetstat[i].communicate()
                 lines = outs.split('\n')
+                linecount = 0
                 for line in lines:
-                    if line:
+                    if line and line.split()[0] != '%CPU':
+                        linecount += 1
                         targetcpu[i] += float(line.split()[0].replace(',', '.'))
                         targetmem[i] += float(line.split()[1])
-                targetcpu[i] /= len(lines)
-                targetmem[i] /= len(lines)
+                targetcpu[i] /= linecount
+                targetmem[i] /= linecount
                 print 'Bro @ target %s took on average %.2f%% CPU and %.0f KB of physical memory.' % (tgt, targetcpu[i], targetmem[i])
 
         for i, (src, srcb) in enumerate(sources):

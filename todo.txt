@@ -1,2 +1,0 @@
-- 4 VMs on each machine
-- automatic generation of plots

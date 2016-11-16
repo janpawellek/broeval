@@ -17,6 +17,6 @@ MACHINE=$1
 # And add the following line at the end (without #):
 # %sudo ALL=(ALL:ALL) NOPASSWD:   /usr/local/bro/bin/bro * 
 
-ssh jan@$MACHINE 'cd ~/brolog; nohup sudo /usr/local/bro/bin/bro -i enp0s25 > /dev/null 2> /dev/null < /dev/null &'
+ssh ubuntu@$MACHINE 'mkdir -p ~/brolog; cd ~/brolog; nohup sudo /usr/local/bro/bin/bro -i enp0s8 > /dev/null 2> /dev/null < /dev/null &'
 sleep 5
 

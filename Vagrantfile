@@ -3,58 +3,54 @@
 
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/xenial64"
-
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  config.vm.box_check_update = false
 
   config.vm.define "bro11", autostart: false do |bro11|
-    bro11.vm.network "private_network", ip: "10.0.0.11"
+    bro11.vm.network "public_network", ip: "10.0.0.11"
   end
   config.vm.define "bro12", autostart: false do |bro12|
-    bro12.vm.network "private_network", ip: "10.0.0.12"
+    bro12.vm.network "public_network", ip: "10.0.0.12"
   end
   config.vm.define "bro13", autostart: false do |bro13|
-    bro13.vm.network "private_network", ip: "10.0.0.13"
+    bro13.vm.network "public_network", ip: "10.0.0.13"
   end
   config.vm.define "bro14", autostart: false do |bro14|
-    bro14.vm.network "private_network", ip: "10.0.0.14"
+    bro14.vm.network "public_network", ip: "10.0.0.14"
   end
 
   config.vm.define "bro21", autostart: false do |bro21|
-    bro21.vm.network "private_network", ip: "10.0.0.21"
+    bro21.vm.network "public_network", ip: "10.0.0.21"
   end
   config.vm.define "bro22", autostart: false do |bro22|
-    bro22.vm.network "private_network", ip: "10.0.0.22"
+    bro22.vm.network "public_network", ip: "10.0.0.22"
   end
   config.vm.define "bro23", autostart: false do |bro23|
-    bro23.vm.network "private_network", ip: "10.0.0.23"
+    bro23.vm.network "public_network", ip: "10.0.0.23"
   end
   config.vm.define "bro24", autostart: false do |bro24|
-    bro24.vm.network "private_network", ip: "10.0.0.24"
+    bro24.vm.network "public_network", ip: "10.0.0.24"
   end
 
   config.vm.define "bro31", autostart: false do |bro31|
-    bro31.vm.network "private_network", ip: "10.0.0.31"
+    bro31.vm.network "public_network", ip: "10.0.0.31"
   end
   config.vm.define "bro32", autostart: false do |bro32|
-    bro32.vm.network "private_network", ip: "10.0.0.32"
+    bro32.vm.network "public_network", ip: "10.0.0.32"
   end
   config.vm.define "bro33", autostart: false do |bro33|
-    bro33.vm.network "private_network", ip: "10.0.0.33"
+    bro33.vm.network "public_network", ip: "10.0.0.33"
   end
   config.vm.define "bro34", autostart: false do |bro34|
-    bro34.vm.network "private_network", ip: "10.0.0.34"
+    bro34.vm.network "public_network", ip: "10.0.0.34"
   end
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "1024"
+    vb.memory = "3072"
   end
 
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
-    apt-get install -y apache2 openssh-server vim git curl
+    apt-get install -y apache2 openssh-server vim git curl parallel sysstat htop
     # Download and install Bro
     [ -d bro-2.4.1/ ] || curl -O https://www.bro.org/downloads/bro-2.4.1.tar.gz
     [ -d bro-2.4.1/ ] || tar -xvzf bro-2.4.1.tar.gz
