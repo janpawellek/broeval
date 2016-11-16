@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 
+LATEX = True
+
 import sys
 import os
 import csv
+import re
 from scipy import stats
 
 def main():
@@ -13,7 +16,10 @@ def main():
     firstlen = len(sys.argv[1:]) / 2
     resultfns = [(sys.argv[1:][i], sys.argv[1:][firstlen+i]) for i in range(firstlen)]
 
-    print "file_bro, total_nobro, total_bro, avgsec_nobro, avgsec_bro, avgsec_diff, statistic, pvalue, avgsrccpu, avgsrcmem, avgtgtcpu, avgtgtmem"
+    if LATEX:
+        print "LaTeX output is enabled. To generate a CSV instead, set 'LATEX = False' at the beginning of this script file."
+    else:
+        print "file_bro, total_nobro, total_bro, avgsec_nobro, avgsec_bro, avgsec_diff, statistic, pvalue, avgsrccpu, avgsrcmem, avgtgtcpu, avgtgtmem"
     for resultfn in resultfns:
         resultf_nobro = open(resultfn[0])
         resultf_bro = open(resultfn[1])
@@ -48,7 +54,11 @@ def main():
         avgtgtcpu /= total_bro
         avgtgtmem /= total_bro
         statistic, pvalue = stats.ttest_ind(a, b, equal_var=False)
-        print "%s, %i, %i, %.2f, %.2f, %.2f, %.2f, %.5f, %.2f, %.2f, %.2f, %.2f" % (resultfn[1], total_nobro, total_bro, avgsec_nobro, avgsec_bro, (avgsec_bro-avgsec_nobro), statistic, pvalue, avgsrccpu, avgsrcmem, avgtgtcpu, avgtgtmem)
+        if LATEX:
+            niter = int(re.sub(r'\D', '', os.path.basename(resultfn[1])))
+            print "%i & %.2f & %.2f & %.2f & %.2f & %.2f & %.2f & %.2f & %.2f \\\\" % (niter, avgsec_nobro, avgsec_bro, (avgsec_bro-avgsec_nobro), pvalue, avgsrccpu, avgsrcmem, avgtgtcpu, avgtgtmem)
+        else:
+            print "%s, %i, %i, %.2f, %.2f, %.2f, %.2f, %.5f, %.2f, %.2f, %.2f, %.2f" % (resultfn[1], total_nobro, total_bro, avgsec_nobro, avgsec_bro, (avgsec_bro-avgsec_nobro), statistic, pvalue, avgsrccpu, avgsrcmem, avgtgtcpu, avgtgtmem)
 
         resultf_nobro.close()
         resultf_bro.close()
