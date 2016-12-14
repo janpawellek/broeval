@@ -19,6 +19,6 @@ MACHINE=$1
 
 while :
 do
-ssh jan@$MACHINE 'pidstat -ruh -C "^bro$" 1 1 | tail -n 1 | tr -s " " | cut -d " " -f 8,13'
+ssh ubuntu@$MACHINE 'pidstat -ruh -C "^bro$" 1 1 | tail -n 1 | tr -s " " | cut -d " " -f 8,13'
 done
 
