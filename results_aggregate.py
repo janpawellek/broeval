@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
-LATEX = True
+# Choose one of the output formats here:
+#FORMAT = 'CSV'
+#FORMAT = 'LaTeX'
+FORMAT = 'Preplot'
 
 import sys
 import os
@@ -15,10 +18,11 @@ def main():
         return
     firstlen = len(sys.argv[1:]) / 2
     resultfns = [(sys.argv[1:][i], sys.argv[1:][firstlen+i]) for i in range(firstlen)]
+    preplotresults = {'time-bro': [], 'time-diff': [], 'time-nobro': [], 'cpu': [], 'mem': []}
 
-    if LATEX:
-        print "LaTeX output is enabled. To generate a CSV instead, set 'LATEX = False' at the beginning of this script file."
-    else:
+    if FORMAT == 'LaTeX':
+        print "LaTeX output is enabled. To generate a CSV instead, set FORMAT = 'CSV' at the beginning of this script file."
+    elif FORMAT == 'CSV':
         print "file_bro, total_nobro, total_bro, avgsec_nobro, avgsec_bro, avgsec_diff, statistic, pvalue, avgsrccpu, avgsrcmem, avgtgtcpu, avgtgtmem"
     for resultfn in resultfns:
         resultf_nobro = open(resultfn[0])
@@ -54,14 +58,26 @@ def main():
         avgtgtcpu /= total_bro
         avgtgtmem /= total_bro
         statistic, pvalue = stats.ttest_ind(a, b, equal_var=False)
-        if LATEX:
+        if FORMAT == 'LaTeX':
             niter = int(re.sub(r'\D', '', os.path.basename(resultfn[1])))
             print "%i & %.2f & %.2f & %.2f & %.2f & %.2f & %.2f & %.2f & %.2f \\\\" % (niter, avgsec_nobro, avgsec_bro, (avgsec_bro-avgsec_nobro), pvalue, avgsrccpu, avgsrcmem, avgtgtcpu, avgtgtmem)
-        else:
+        elif FORMAT == 'CSV':
             print "%s, %i, %i, %.2f, %.2f, %.2f, %.2f, %.5f, %.2f, %.2f, %.2f, %.2f" % (resultfn[1], total_nobro, total_bro, avgsec_nobro, avgsec_bro, (avgsec_bro-avgsec_nobro), statistic, pvalue, avgsrccpu, avgsrcmem, avgtgtcpu, avgtgtmem)
+        elif FORMAT == 'Preplot':
+            niter = float(re.sub(r'\D', '', os.path.basename(resultfn[1]))) / 1000.0
+            preplotresults['time-bro'].append("%.1f %.2f" % (niter, avgsec_bro))
+            preplotresults['time-nobro'].append("%.1f %.2f" % (niter, avgsec_nobro))
+            preplotresults['time-diff'].append("%.1f %.2f" % (niter, (avgsec_bro-avgsec_nobro)))
+            preplotresults['cpu'].append("%.1f %.2f" % (niter, avgsrccpu))
+            preplotresults['mem'].append("%.1f %.2f" % (niter, avgsrcmem/1000.0))
 
         resultf_nobro.close()
         resultf_bro.close()
+    if FORMAT == 'Preplot':
+        for key in preplotresults.keys():
+            print "### %s" % key
+            for line in preplotresults[key]:
+                print line
 
 if __name__ == '__main__':
     main()
